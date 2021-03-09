@@ -10,7 +10,8 @@ class HomeScreen extends StatelessWidget
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     // 1. status bar
     // 2. app bar (leading-title-actions)
     // 3. body
@@ -28,7 +29,8 @@ class HomeScreen extends StatelessWidget
         leading: Icon(
           Icons.menu,
         ),
-        actions: [
+        actions:
+        [
           IconButton(
             onPressed: onSearchClicked,
             icon: Icon(
@@ -46,8 +48,49 @@ class HomeScreen extends StatelessWidget
           ),
         ],
       ),
+      body: Column(
+        children:
+        [
+          Expanded(
+            child: Container(
+              color: Colors.red,
+              child: Text(
+                'Hello World..!',
+                style: TextStyle(
+                  fontSize: 30.0,
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: Colors.green,
+              child: Text(
+                'Hello World..!',
+                style: TextStyle(
+                  fontSize: 30.0,
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: Colors.blue,
+              child: Text(
+                'Hello World..!',
+                style: TextStyle(
+                  fontSize: 30.0,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
+
+  // 3 + 2 = 5
+  // 1 / 5 = .2
 
   void onSearchClicked()
   {

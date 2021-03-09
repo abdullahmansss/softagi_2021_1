@@ -25,8 +25,34 @@ class MyApp extends StatelessWidget
       theme: ThemeData(
         primarySwatch: Colors.teal,
       ),
-      home: HomeScreen(
-      ),
+      home: HomeScreen(),
     );
   }
 }
+
+// 1. design                50%
+// 2. code implementation   50%
+
+// 1. splash screen module.     2 day
+// 2. login module.             4 days
+// 3. home module.              12 days
+// 4. package details module.   4 days
+// 5. profile module.           4 days
+// 6. add package module.       6 days
+// 7. previous works module.    2 day
+// 8. previous packages module. 2 day
+// 9. notifications module.     2 day
+// 10. search module.           4 days
+
+// total 42 days * 8 hours = 336 hours
+// 336 * 200 = 67,200 L.E
+
+// 50% first day
+// 25% 21th day
+// 25% 42th day
+
+// 1. analysis
+// 2. UI & UX
+// 3. Back End
+// 4. Mobile Design
+// 5. Mobile Back End
