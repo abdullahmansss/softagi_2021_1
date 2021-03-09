@@ -49,46 +49,273 @@ class HomeScreen extends StatelessWidget
         ],
       ),
       body: Container(
-        color: Colors.indigo,
-        //width: double.infinity,
-        height: double.infinity,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            //crossAxisAlignment: CrossAxisAlignment.end,
-            //mainAxisAlignment: MainAxisAlignment.end,
-            //mainAxisSize: MainAxisSize.min,
-            children:
-            [
-              Text(
-                'Hello World..!',
-                style: TextStyle(
-                  fontSize: 25.0,
-                  backgroundColor: Colors.red,
+        //color: Colors.indigo,
+        width: double.infinity,
+        //height: double.infinity,
+        child: Scrollbar(
+          //thickness: 30.0,
+          child: SingleChildScrollView(
+            //scrollDirection: Axis.horizontal,
+            child: Column(
+              //crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
+              //mainAxisSize: MainAxisSize.min,
+              children:
+              [
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.red,
+                  ),
                 ),
-              ),
-              Text(
-                'Hello World..!',
-                style: TextStyle(
-                  fontSize: 25.0,
-                  backgroundColor: Colors.green,
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.green,
+                  ),
                 ),
-              ),
-              Text(
-                'Hello World..!',
-                style: TextStyle(
-                  fontSize: 25.0,
-                  backgroundColor: Colors.yellow,
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.yellow,
+                  ),
                 ),
-              ),
-              Text(
-                'Hello World..!',
-                style: TextStyle(
-                  fontSize: 25.0,
-                  backgroundColor: Colors.green,
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.green,
+                  ),
                 ),
-              ),
-            ],
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.red,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.green,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.yellow,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.green,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.red,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.green,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.yellow,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.green,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.red,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.green,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.yellow,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.green,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.red,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.green,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.yellow,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.green,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.red,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.green,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.yellow,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.green,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.red,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.green,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.yellow,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.green,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.red,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.green,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.yellow,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.green,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.red,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.green,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.yellow,
+                  ),
+                ),
+                Text(
+                  'Hello World..!',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    backgroundColor: Colors.green,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
