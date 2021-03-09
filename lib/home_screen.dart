@@ -48,43 +48,25 @@ class HomeScreen extends StatelessWidget
           ),
         ],
       ),
-      body: Column(
-        children:
-        [
-          Expanded(
-            child: Container(
-              color: Colors.red,
-              child: Text(
+      body: Center(
+        child: Container(
+          color: Colors.indigo,
+          //width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisSize: MainAxisSize.min,
+            children:
+            [
+              Text(
                 'Hello World..!',
                 style: TextStyle(
-                  fontSize: 30.0,
+                  fontSize: 25.0,
                 ),
               ),
-            ),
+            ],
           ),
-          Expanded(
-            child: Container(
-              color: Colors.green,
-              child: Text(
-                'Hello World..!',
-                style: TextStyle(
-                  fontSize: 30.0,
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              color: Colors.blue,
-              child: Text(
-                'Hello World..!',
-                style: TextStyle(
-                  fontSize: 30.0,
-                ),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
