@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:softagi_2021/home_screen.dart';
 
 // main method in app
-void main()
-{
+void main() {
   // run my app method
   // param is object from Widget class
   runApp(MyApp());
@@ -13,19 +12,20 @@ void main()
 // 2. stateful
 
 // main class extends widget
-class MyApp extends StatelessWidget
-{
+class MyApp extends StatelessWidget {
   // main method of class to build screen UI
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     // material app object wrap all screens
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.teal,
       ),
-      home: HomeScreen(),
+      home: Directionality(
+        textDirection: TextDirection.ltr,
+        child: HomeScreen(),
+      ),
     );
   }
 }
