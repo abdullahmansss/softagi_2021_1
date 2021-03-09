@@ -98,9 +98,10 @@ class HomeScreen extends StatelessWidget {
                       child: Column(
                         children:
                         [
-                          CircleAvatar(
-                            radius: 30.0,
-                            backgroundImage: NetworkImage('https://cdn.pixabay.com/photo/2015/04/19/08/33/flower-729512__340.jpg'),
+                          Image(
+                            image: NetworkImage('https://cdn.pixabay.com/photo/2015/04/19/08/33/flower-729512__340.jpg'),
+                            width: 60.0,
+                            height: 60.0,
                           ),
                           SizedBox(
                             height: 10.0,
