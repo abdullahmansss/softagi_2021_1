@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatelessWidget
+{
   // variable to set title in app bar
   final String title;
 
@@ -17,441 +18,118 @@ class HomeScreen extends StatelessWidget {
     // 5. floating action button
     // 6. drawer
 
+    // text field
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text(
-          title,
-          style: TextStyle(),
-        ),
-        leading: Icon(
-          Icons.menu,
-        ),
-        actions: [
-          IconButton(
-            onPressed: onSearchClicked,
-            icon: Icon(
-              Icons.search,
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              print('notifications clicked');
-            },
-            icon: Icon(
-              Icons.notifications,
-            ),
-          ),
-        ],
       ),
-      body: Container(
-        color: Colors.indigo,
-        width: double.infinity,
-        child: Padding(
-          padding: const EdgeInsetsDirectional.only(
-            start: 20.0,
-            end: 20.0,
-            top: 20.0,
-            bottom: 20.0,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children:
-            [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children:
+          [
+            Text(
+              'Login',
+              style: TextStyle(
+                fontSize: 30.0,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 20.0,
+              ),
+              child: Container(
+                width: 50.0,
+                height: 5.0,
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 15.0,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(10.0),
+                border: Border.all(
+                  color: Colors.grey,
+                ),
+              ),
+              child: Row(
                 children:
                 [
-                  // SizedBox(
-                  //   width: 20.0,
-                  // ),
-                  Container(
-                    color: Colors.red,
-                    child: Text(
-                      'Active',
+                  Icon(
+                    Icons.email_outlined,
+                  ),
+                  SizedBox(
+                    width: 15.0,
+                  ),
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Email',
+                      ),
                     ),
                   ),
-                  // Spacer(),
-                  MaterialButton(
-                    color: Colors.green,
-                    onPressed: () {},
-                    child: Text(
-                      'Watch All',
-                    ),
-                  ),
-                  // SizedBox(
-                  //   width: 20.0,
-                  // ),
                 ],
               ),
-              SizedBox(
-                height: 20.0,
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 15.0,
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children:
-                  [
-                    Container(
-                      color: Colors.amber,
-                      child: Column(
-                        children:
-                        [
-                          Image(
-                            image: NetworkImage('https://cdn.pixabay.com/photo/2015/04/19/08/33/flower-729512__340.jpg'),
-                            width: 60.0,
-                            height: 60.0,
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          Container(
-                            color: Colors.blue,
-                            child: Row(
-                              children:
-                              [
-                                Icon(
-                                  Icons.add_circle_outlined,
-                                  size: 16.0,
-                                  color: Colors.green,
-                                ),
-                                SizedBox(
-                                  width: 5.0,
-                                ),
-                                Text(
-                                  'Ahmed Ali',
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15.0,
-                    ),
-                    Container(
-                      color: Colors.amber,
-                      child: Column(
-                        children:
-                        [
-                          CircleAvatar(
-                            radius: 30.0,
-                            backgroundImage: NetworkImage('https://cdn.pixabay.com/photo/2015/04/19/08/33/flower-729512__340.jpg'),
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          Container(
-                            color: Colors.blue,
-                            child: Row(
-                              children:
-                              [
-                                Icon(
-                                  Icons.add_circle_outlined,
-                                  size: 16.0,
-                                  color: Colors.green,
-                                ),
-                                SizedBox(
-                                  width: 5.0,
-                                ),
-                                Text(
-                                  'Ahmed Ali',
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15.0,
-                    ),
-                    Container(
-                      color: Colors.amber,
-                      child: Column(
-                        children:
-                        [
-                          CircleAvatar(
-                            radius: 30.0,
-                            backgroundImage: NetworkImage('https://cdn.pixabay.com/photo/2015/04/19/08/33/flower-729512__340.jpg'),
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          Container(
-                            color: Colors.blue,
-                            child: Row(
-                              children:
-                              [
-                                Icon(
-                                  Icons.add_circle_outlined,
-                                  size: 16.0,
-                                  color: Colors.green,
-                                ),
-                                SizedBox(
-                                  width: 5.0,
-                                ),
-                                Text(
-                                  'Ahmed Ali',
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15.0,
-                    ),
-                    Container(
-                      color: Colors.amber,
-                      child: Column(
-                        children:
-                        [
-                          CircleAvatar(
-                            radius: 30.0,
-                            backgroundImage: NetworkImage('https://cdn.pixabay.com/photo/2015/04/19/08/33/flower-729512__340.jpg'),
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          Container(
-                            color: Colors.blue,
-                            child: Row(
-                              children:
-                              [
-                                Icon(
-                                  Icons.add_circle_outlined,
-                                  size: 16.0,
-                                  color: Colors.green,
-                                ),
-                                SizedBox(
-                                  width: 5.0,
-                                ),
-                                Text(
-                                  'Ahmed Ali',
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15.0,
-                    ),
-                    Container(
-                      color: Colors.amber,
-                      child: Column(
-                        children:
-                        [
-                          CircleAvatar(
-                            radius: 30.0,
-                            backgroundImage: NetworkImage('https://cdn.pixabay.com/photo/2015/04/19/08/33/flower-729512__340.jpg'),
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          Container(
-                            color: Colors.blue,
-                            child: Row(
-                              children:
-                              [
-                                Icon(
-                                  Icons.add_circle_outlined,
-                                  size: 16.0,
-                                  color: Colors.green,
-                                ),
-                                SizedBox(
-                                  width: 5.0,
-                                ),
-                                Text(
-                                  'Ahmed Ali',
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15.0,
-                    ),
-                    Container(
-                      color: Colors.amber,
-                      child: Column(
-                        children:
-                        [
-                          CircleAvatar(
-                            radius: 30.0,
-                            backgroundImage: NetworkImage('https://cdn.pixabay.com/photo/2015/04/19/08/33/flower-729512__340.jpg'),
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          Container(
-                            color: Colors.blue,
-                            child: Row(
-                              children:
-                              [
-                                Icon(
-                                  Icons.add_circle_outlined,
-                                  size: 16.0,
-                                  color: Colors.green,
-                                ),
-                                SizedBox(
-                                  width: 5.0,
-                                ),
-                                Text(
-                                  'Ahmed Ali',
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(10.0),
+                border: Border.all(
+                  color: Colors.grey,
                 ),
               ),
-              SizedBox(
-                height: 20.0,
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.lock_outline,
+                  ),
+                  SizedBox(
+                    width: 15.0,
+                  ),
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Password',
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Text(
-                        'Name',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        'Name',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        'Name',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        'Name',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        'Name',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        'Name',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        'Name',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        'Name',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        'Name',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        'Name',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        'Name',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        'Name',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        'Name',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        'Name',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        ),
-                      ),
-                    ],
+            ),
+            SizedBox(
+              height: 40.0,
+            ),
+            Container(
+              width: double.infinity,
+              child: MaterialButton(
+                onPressed: () {},
+                color: Colors.blue,
+                child: Text(
+                  'LOGIN',
+                  style: TextStyle(
+                    color: Colors.white,
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
