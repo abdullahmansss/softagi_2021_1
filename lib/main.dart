@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'Jannah',
         primarySwatch: Colors.teal,
       ),
       home: Directionality(
@@ -56,3 +57,7 @@ class MyApp extends StatelessWidget {
 // 3. Back End
 // 4. Mobile Design
 // 5. Mobile Back End
+
+const IMAGE_ASSETS_PATH = 'assets/images/';
+
+const LOGO_PATH = 'assets/images/flut.png';

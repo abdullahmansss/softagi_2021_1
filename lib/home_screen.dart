@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:softagi_2021/main.dart';
 
 class HomeScreen extends StatefulWidget {
   // variable to set title in app bar
@@ -33,79 +34,87 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Login',
-              style: TextStyle(
-                fontSize: 30.0,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 20.0,
-              ),
-              child: Container(
-                width: 50.0,
-                height: 5.0,
-                decoration: BoxDecoration(
-                  color: Colors.teal,
-                  borderRadius: BorderRadius.circular(10.0),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Login',
+                style: TextStyle(
+                  fontSize: 30.0,
                 ),
               ),
-            ),
-            defaultFormField(
-              controller: emailController,
-              icon: Icons.email,
-              label: 'Email Address',
-              type: TextInputType.emailAddress,
-              onSubmit: (value) {
-                print(value);
-              },
-              onChange: (value) {
-                print(value);
-              },
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            defaultFormField(
-              controller: passwordController,
-              icon: Icons.lock_outline,
-              label: 'Password',
-              type: TextInputType.visiblePassword,
-              onSubmit: (value) {
-                print(value);
-              },
-              onChange: (value) {
-                print(value);
-              },
-            ),
-            SizedBox(
-              height: 40.0,
-            ),
-            defaultButton(
-              whenPress: () {},
-              text: 'login',
-            ),
-            defaultButton(
-              whenPress: () {},
-              background: Colors.red,
-              textColor: Colors.black,
-              text: 'reGISTEr',
-              upperCase: false,
-              fullWidth: false,
-            ),
-            defaultButton(
-              whenPress: () {},
-              width: 200.0,
-              fullWidth: false,
-              text: 'login',
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 20.0,
+                ),
+                child: Container(
+                  width: 50.0,
+                  height: 5.0,
+                  decoration: BoxDecoration(
+                    color: Colors.teal,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+              defaultFormField(
+                controller: emailController,
+                icon: Icons.email,
+                label: 'Email Address',
+                type: TextInputType.emailAddress,
+                onSubmit: (value)
+                {
+                  print(value);
+                },
+                onChange: (value)
+                {
+                  print(value);
+                },
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              defaultFormField(
+                controller: passwordController,
+                icon: Icons.lock_outline,
+                label: 'Password',
+                type: TextInputType.visiblePassword,
+                onSubmit: (value) {
+                  print(value);
+                },
+                onChange: (value) {
+                  print(value);
+                },
+              ),
+              SizedBox(
+                height: 40.0,
+              ),
+              defaultButton(
+                whenPress: () {},
+                text: 'login',
+              ),
+              defaultButton(
+                whenPress: () {},
+                text: 'تسجيل حساب جديد',
+              ),
+              defaultButton(
+                whenPress: () {},
+                width: 200.0,
+                fullWidth: false,
+                text: 'login',
+              ),
+              SizedBox(
+                height: 50.0,
+              ),
+              Image(
+                image: AssetImage(
+                  LOGO_PATH,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -124,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
     bool upperCase = true,
   }) =>
       Container(
-        width: fullWidth ? double.infinity : width??null,
+        width: fullWidth ? double.infinity : width ?? null,
         child: MaterialButton(
           height: 40.0,
           onPressed: whenPress,
