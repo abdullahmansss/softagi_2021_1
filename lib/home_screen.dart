@@ -15,16 +15,9 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-{
-  @override
-  void initState() {
-    super.initState();
-
-    streamCounter().listen((event) {
-      print(event);
-    });
-  }
+class _HomeScreenState extends State<HomeScreen> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +29,10 @@ class _HomeScreenState extends State<HomeScreen>
     // 6. drawer
 
     // text field
+    //emailController.text = 'hello';
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-      ),
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -60,89 +52,58 @@ class _HomeScreenState extends State<HomeScreen>
                 width: 50.0,
                 height: 5.0,
                 decoration: BoxDecoration(
-                  color: Colors.green,
+                  color: Colors.teal,
                   borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 15.0,
-              ),
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(
-                  color: Colors.grey,
-                ),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.email_outlined,
-                  ),
-                  SizedBox(
-                    width: 15.0,
-                  ),
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Email',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            defaultFormField(
+              controller: emailController,
+              icon: Icons.email,
+              label: 'Email Address',
+              type: TextInputType.emailAddress,
+              onSubmit: (value) {
+                print(value);
+              },
+              onChange: (value) {
+                print(value);
+              },
             ),
             SizedBox(
               height: 10.0,
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 15.0,
-              ),
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(
-                  color: Colors.grey,
-                ),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.lock_outline,
-                  ),
-                  SizedBox(
-                    width: 15.0,
-                  ),
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Password',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            defaultFormField(
+              controller: passwordController,
+              icon: Icons.lock_outline,
+              label: 'Password',
+              type: TextInputType.visiblePassword,
+              onSubmit: (value) {
+                print(value);
+              },
+              onChange: (value) {
+                print(value);
+              },
             ),
             SizedBox(
               height: 40.0,
             ),
-            Container(
-              width: double.infinity,
-              child: MaterialButton(
-                onPressed: onSearchClicked,
-                color: Colors.blue,
-                child: Text(
-                  'LOGIN',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+            defaultButton(
+              whenPress: () {},
+              text: 'login',
+            ),
+            defaultButton(
+              whenPress: () {},
+              background: Colors.red,
+              textColor: Colors.black,
+              text: 'reGISTEr',
+              upperCase: false,
+              fullWidth: false,
+            ),
+            defaultButton(
+              whenPress: () {},
+              width: 200.0,
+              fullWidth: false,
+              text: 'login',
             ),
           ],
         ),
@@ -150,73 +111,52 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  void onSearchClicked() async {
-    // print('Fetching user order...');
-    // print('Your order is: ${await fetchUserOrder()}');
+  // 65
 
-    // var value1 = await getRandomValue();
-    // print(value1);
-    //
-    // getRandomValues().listen((value) {
-    //   print('1st: $value');
-    // });
+  // reuse of components
+  Widget defaultButton({
+    @required Function whenPress,
+    Color background = Colors.teal,
+    @required String text,
+    Color textColor = Colors.white,
+    bool fullWidth = true,
+    double width,
+    bool upperCase = true,
+  }) =>
+      Container(
+        width: fullWidth ? double.infinity : width??null,
+        child: MaterialButton(
+          height: 40.0,
+          onPressed: whenPress,
+          color: background,
+          child: Text(
+            upperCase ? text.toUpperCase() : text,
+            style: TextStyle(
+              color: textColor,
+            ),
+          ),
+        ),
+      );
 
-    if (counter == 10)
-    {
-      controller.close(); // Ask stream to shut down and tell listeners.
-    } else
-      {
-        counter++;
-        controller.add(counter);
-      }
-  }
-
-  Future<String> fetchUserOrder() {
-    return Future.delayed(
-      Duration(seconds: 2),
-      () {
-        return 'Large Latte';
-      },
-    );
-  }
-
-  Future<int> getRandomValue() async {
-    var random = Random(2);
-    await Future.delayed(Duration(seconds: 1));
-    return random.nextInt(5);
-  }
-
-  Stream<int> getRandomValues() async* {
-    var random = Random(2);
-    while (true) {
-      await Future.delayed(Duration(seconds: 1));
-      yield random.nextInt(5);
-    }
-  }
-
-  StreamController<int> controller;
-
-  int counter = 0;
-
-  Stream<int> streamCounter()
-  {
-    void startStream()
-    {
-      print('start');
-    }
-
-    void stopStream()
-    {
-      print('stop');
-    }
-
-    controller = StreamController<int>(
-      onListen: startStream,
-      onPause: stopStream,
-      onResume: startStream,
-      onCancel: stopStream,
-    );
-
-    return controller.stream;
-  }
+  Widget defaultFormField({
+    @required TextEditingController controller,
+    @required TextInputType type,
+    @required String label,
+    @required IconData icon,
+    @required Function onSubmit,
+    @required Function onChange,
+  }) =>
+      TextField(
+        controller: controller,
+        keyboardType: type,
+        onSubmitted: onSubmit,
+        onChanged: onChange,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: label,
+          prefixIcon: Icon(
+            icon,
+          ),
+        ),
+      );
 }
