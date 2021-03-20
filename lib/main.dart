@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:softagi_2021/home_screen.dart';
+import 'package:softagi_2021/modules/counter_screen/counter_screen.dart';
+import 'package:softagi_2021/modules/home_screen/home_screen.dart';
 
 // main method in app
-void main() {
+void main()
+{
   // run my app method
   // param is object from Widget class
   runApp(MyApp());
@@ -12,7 +14,8 @@ void main() {
 // 2. stateful
 
 // main class extends widget
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget
+{
   // main method of class to build screen UI
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class MyApp extends StatelessWidget {
       ),
       home: Directionality(
         textDirection: TextDirection.ltr,
-        child: HomeScreen(),
+        child: CounterScreen(),
       ),
     );
   }
@@ -36,7 +39,7 @@ class MyApp extends StatelessWidget {
 
 // 1. splash screen module.     2 day
 // 2. login module.             4 days
-// 3. home module.              12 days
+// 3. home module ().              12 days
 // 4. package details module.   4 days
 // 5. profile module.           4 days
 // 6. add package module.       6 days
@@ -58,6 +61,5 @@ class MyApp extends StatelessWidget {
 // 4. Mobile Design
 // 5. Mobile Back End
 
-const IMAGE_ASSETS_PATH = 'assets/images/';
-
-const LOGO_PATH = 'assets/images/flut.png';
+// stateless
+// stateful

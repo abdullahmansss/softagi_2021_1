@@ -1,8 +1,6 @@
-import 'dart:async';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:softagi_2021/main.dart';
+import 'package:softagi_2021/shared/components/components.dart';
+import 'package:softagi_2021/shared/constants.dart';
 
 class HomeScreen extends StatefulWidget {
   // variable to set title in app bar
@@ -16,12 +14,16 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  TextEditingController emailController = TextEditingController();
+class _HomeScreenState extends State<HomeScreen>
+{
+  TextEditingController emailController = TextEditingController(
+    text: '',
+  );
   TextEditingController passwordController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     // 1. status bar
     // 2. app bar (leading-title-actions)
     // 3. body
@@ -30,7 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
     // 6. drawer
 
     // text field
-    //emailController.text = 'hello';
+    emailController.text = 'hello';
+    emailController.text = 'aaaaaaa';
 
     return Scaffold(
       appBar: AppBar(),
@@ -92,7 +95,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 40.0,
               ),
               defaultButton(
-                whenPress: () {},
+                whenPress: ()
+                {
+                  String s = emailController.text;
+                },
                 text: 'login',
               ),
               defaultButton(
@@ -119,53 +125,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-  // 65
-
-  // reuse of components
-  Widget defaultButton({
-    @required Function whenPress,
-    Color background = Colors.teal,
-    @required String text,
-    Color textColor = Colors.white,
-    bool fullWidth = true,
-    double width,
-    bool upperCase = true,
-  }) =>
-      Container(
-        width: fullWidth ? double.infinity : width ?? null,
-        child: MaterialButton(
-          height: 40.0,
-          onPressed: whenPress,
-          color: background,
-          child: Text(
-            upperCase ? text.toUpperCase() : text,
-            style: TextStyle(
-              color: textColor,
-            ),
-          ),
-        ),
-      );
-
-  Widget defaultFormField({
-    @required TextEditingController controller,
-    @required TextInputType type,
-    @required String label,
-    @required IconData icon,
-    @required Function onSubmit,
-    @required Function onChange,
-  }) =>
-      TextField(
-        controller: controller,
-        keyboardType: type,
-        onSubmitted: onSubmit,
-        onChanged: onChange,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: label,
-          prefixIcon: Icon(
-            icon,
-          ),
-        ),
-      );
 }
