@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:softagi_2021/modules/contacts_screen/contacts_screen.dart';
 import 'package:softagi_2021/modules/counter_screen/counter_screen.dart';
 import 'package:softagi_2021/modules/home_screen/home_screen.dart';
 
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget
       ),
       home: Directionality(
         textDirection: TextDirection.ltr,
-        child: CounterScreen(),
+        child: ContactsScreen(),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:softagi_2021/modules/contacts_screen/contacts_screen.dart';
 
 Widget defaultButton({
   @required Function whenPress,
@@ -43,5 +44,56 @@ Widget defaultFormField({
         prefixIcon: Icon(
           icon,
         ),
+      ),
+    );
+
+Widget contactItem({
+  @required ContactsModel model,
+}) =>
+    Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 25.0,
+            child: Text(
+              model.code,
+              style: TextStyle(
+                fontSize: 25.0,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 20.0,
+          ),
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  model.name,
+                ),
+                Text(
+                  model.number,
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+
+Widget myDivider() => Padding(
+      padding: const EdgeInsetsDirectional.only(
+        start: 20.0,
+      ),
+      child: Container(
+        width: double.infinity,
+        height: 1.0,
+        color: Colors.grey[300],
       ),
     );
