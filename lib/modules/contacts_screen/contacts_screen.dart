@@ -83,21 +83,50 @@ class ContactsScreen extends StatelessWidget
   @override
   Widget build(BuildContext contactsContext)
   {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Contacts',
-        ),
-      ),
-      body: ListView.separated(
-        itemBuilder: (listContext, index) => contactItem(
-          model: contactsList[index],
-        ),
-        separatorBuilder: (listContext, index) => myDivider(),
-        itemCount: contactsList.length,
-      ),
-    );
+    var w = MediaQuery.of(contactsContext).size.width;
+    print(w.round());
+
+    var h = MediaQuery.of(contactsContext).size.height;
+    print(h.round());
+
+    return w < 300 ? myList() : webList();
   }
+
+  Widget myList()=> Scaffold(
+    appBar: AppBar(
+      title: Text(
+        'Contacts',
+      ),
+    ),
+    body: ListView.separated(
+      itemBuilder: (BuildContext listContext, int index)
+      {
+        return contactItem(
+          model: contactsList[index],
+        );
+      },
+      separatorBuilder: (BuildContext listContext, int index) => myDivider(),
+      itemCount: contactsList.length,
+    ),
+  );
+
+  Widget webList()=> Scaffold(
+    appBar: AppBar(
+      title: Text(
+        'Contacts',
+      ),
+    ),
+    body: ListView.separated(
+      itemBuilder: (BuildContext listContext, int index)
+      {
+        return contactItem2(
+          model: contactsList[index],
+        );
+      },
+      separatorBuilder: (BuildContext listContext, int index) => myDivider(),
+      itemCount: contactsList.length,
+    ),
+  );
 }
 
 // 1. item design.

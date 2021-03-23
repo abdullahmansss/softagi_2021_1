@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:softagi_2021/modules/bmi_screen/bmi_screen.dart';
 import 'package:softagi_2021/modules/contacts_screen/contacts_screen.dart';
-import 'package:softagi_2021/modules/counter_screen/counter_screen.dart';
 import 'package:softagi_2021/modules/home_screen/home_screen.dart';
 
 // main method in app
@@ -24,12 +24,13 @@ class MyApp extends StatelessWidget
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        brightness: Brightness.dark,
         fontFamily: 'Jannah',
         primarySwatch: Colors.teal,
       ),
       home: Directionality(
         textDirection: TextDirection.ltr,
-        child: ContactsScreen(),
+        child: BmiScreen(),
       ),
     );
   }

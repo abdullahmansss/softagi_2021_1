@@ -11,17 +11,12 @@ class CounterScreen extends StatefulWidget
 class CounterScreenState extends State<CounterScreen>
 {
   int counter;
-  List<int> numbers = [];
 
   @override
   void initState()
   {
     super.initState();
     counter = 5;
-    numbers.add(5);
-    numbers.add(4);
-    numbers.add(3);
-    numbers.add(2);
   }
 
   @override
