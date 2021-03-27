@@ -1,96 +1,84 @@
 import 'package:flutter/material.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatelessWidget
+{
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        title: Text(
-          'More',
-          style: TextStyle(
-            color: Colors.black,
+  Widget build(BuildContext context)
+  {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          myDivider(),
+          mySettingItem(
+            whenTap: ()
+            {
+              print('Account Settings');
+            },
+            icon: Icons.settings,
+            title: 'Account Settings',
           ),
-        ),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            myDivider(),
-            mySettingItem(
-              whenTap: ()
-              {
-                print('Account Settings');
-              },
-              icon: Icons.settings,
-              title: 'Account Settings',
-            ),
-            myDivider(),
-            mySettingItem(
-              whenTap: ()
-              {
-                print('Search');
-              },
-              icon: Icons.search,
-              title: 'Search',
-            ),
-            smallDivider(),
-            mySettingItem(
-              whenTap: ()
-              {
-                print('Logout');
-              },
-              icon: Icons.logout,
-              title: 'Logout',
-              isVisible: false,
-            ),
-            // InkWell(
-            //   onTap: () {},
-            //   child: Padding(
-            //     padding: const EdgeInsets.all(
-            //       16.0,
-            //     ),
-            //     child: Row(
-            //       children: [
-            //         Container(
-            //           color: Colors.red,
-            //           child: Icon(
-            //             Icons.circle_notifications,
-            //           ),
-            //         ),
-            //         SizedBox(
-            //           width: 32.0,
-            //         ),
-            //         Expanded(
-            //           child: Container(
-            //             color: Colors.green,
-            //             child: Text(
-            //               'Account Settings',
-            //               style: TextStyle(
-            //                 fontSize: 16.0,
-            //                 fontWeight: FontWeight.bold,
-            //               ),
-            //             ),
-            //           ),
-            //         ),
-            //         SizedBox(
-            //           width: 16.0,
-            //         ),
-            //         Container(
-            //           color: Colors.amber,
-            //           child: Icon(
-            //             Icons.keyboard_arrow_right,
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
-          ],
-        ),
+          myDivider(),
+          mySettingItem(
+            whenTap: ()
+            {
+              print('Search');
+            },
+            icon: Icons.search,
+            title: 'Search',
+          ),
+          smallDivider(),
+          mySettingItem(
+            whenTap: ()
+            {
+              print('Logout');
+            },
+            icon: Icons.logout,
+            title: 'Logout',
+            isVisible: false,
+          ),
+          // InkWell(
+          //   onTap: () {},
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(
+          //       16.0,
+          //     ),
+          //     child: Row(
+          //       children: [
+          //         Container(
+          //           color: Colors.red,
+          //           child: Icon(
+          //             Icons.circle_notifications,
+          //           ),
+          //         ),
+          //         SizedBox(
+          //           width: 32.0,
+          //         ),
+          //         Expanded(
+          //           child: Container(
+          //             color: Colors.green,
+          //             child: Text(
+          //               'Account Settings',
+          //               style: TextStyle(
+          //                 fontSize: 16.0,
+          //                 fontWeight: FontWeight.bold,
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //         SizedBox(
+          //           width: 16.0,
+          //         ),
+          //         Container(
+          //           color: Colors.amber,
+          //           child: Icon(
+          //             Icons.keyboard_arrow_right,
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
+        ],
       ),
     );
   }

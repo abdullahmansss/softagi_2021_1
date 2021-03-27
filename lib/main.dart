@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:softagi_2021/modules/bmi_screen/bmi_screen.dart';
-import 'package:softagi_2021/modules/contacts_screen/contacts_screen.dart';
-import 'package:softagi_2021/modules/home_screen/home_screen.dart';
+import 'package:softagi_2021/layout/home_layout.dart';
 
 // main method in app
 void main()
@@ -19,18 +17,19 @@ class MyApp extends StatelessWidget
 {
   // main method of class to build screen UI
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     // material app object wrap all screens
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         fontFamily: 'Jannah',
         primarySwatch: Colors.teal,
       ),
       home: Directionality(
         textDirection: TextDirection.ltr,
-        child: BmiScreen(),
+        child: HomeLayout(),
       ),
     );
   }
