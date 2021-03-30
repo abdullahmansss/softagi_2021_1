@@ -1,5 +1,7 @@
+import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:softagi_2021/shared/components/components.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -8,8 +10,7 @@ class NewTasksScreen extends StatefulWidget {
   _NewTasksScreenState createState() => _NewTasksScreenState();
 }
 
-class _NewTasksScreenState extends State<NewTasksScreen>
-{
+class _NewTasksScreenState extends State<NewTasksScreen> {
   Database database;
   List<Map> list;
 
@@ -22,6 +23,8 @@ class _NewTasksScreenState extends State<NewTasksScreen>
 
     openDb();
   }
+
+  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +56,64 @@ class _NewTasksScreenState extends State<NewTasksScreen>
           Icons.add,
         ),
       ),
+      body: ConditionalBuilder(
+        condition: list != null,
+        builder: (context) => ListView.separated(
+          itemBuilder: (context, index) => taskItem(list[index]),
+          separatorBuilder: (context, index) => myDivider(),
+          itemCount: list.length,
+        ),
+        fallback: (context) => Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
     );
   }
+
+  // //{id: 1, title: first task, data: 2021/03/27, status: new}
+  // print(list.toString());
+  //
+  // // [{id: 1, title: first task, data: 2021/03/27, status: new}, {id: 2, title: second task, data: 2021/03/27, status: new}]
+  // print(list[0]);
+  //
+  // print(list[0]['id']);
+  // print(list[0]['title']);
+  // print(list[0]['data']);
+  // print(list[0]['status']);
+
+  Widget taskItem(Map item) => Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 40.0,
+              child: Text(
+                item['status'],
+              ),
+            ),
+            SizedBox(
+              width: 20.0,
+            ),
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    item['title'],
+                    style: TextStyle(
+                      fontSize: 20.0,
+                    ),
+                  ),
+                  Text(
+                    item['data'],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
 
   // String getName()
   // {
@@ -78,7 +137,12 @@ class _NewTasksScreenState extends State<NewTasksScreen>
       },
       onOpen: (Database db) {
         print('database opened');
-        getData(db);
+        getData(db).then((value)
+        {
+          setState(() {
+            list = value;
+          });
+        }).catchError((error) {});
       },
     );
   }
@@ -86,29 +150,16 @@ class _NewTasksScreenState extends State<NewTasksScreen>
   Future<void> insertToDb({
     @required String title,
     @required String date,
-  }) async
-  {
-    return await database.transaction((txn) async
-    {
+  }) async {
+    return await database.transaction((txn) async {
       int id = await txn.rawInsert(
           'INSERT INTO tasks(title, data, status) VALUES("$title", "$date", "new")');
       print('inserted: $id');
     });
   }
 
-  void getData(db) async {
-    list = await db.rawQuery('SELECT * FROM tasks');
-
-    //{id: 1, title: first task, data: 2021/03/27, status: new}
-    print(list.toString());
-
-    // [{id: 1, title: first task, data: 2021/03/27, status: new}, {id: 2, title: second task, data: 2021/03/27, status: new}]
-    print(list[0]);
-
-    print(list[0]['id']);
-    print(list[0]['title']);
-    print(list[0]['data']);
-    print(list[0]['status']);
+  Future<List<Map>> getData(db) async {
+    return await db.rawQuery('SELECT * FROM tasks');
   }
 
   void updateData() async {
@@ -126,8 +177,7 @@ class _NewTasksScreenState extends State<NewTasksScreen>
     print('database deleted');
   }
 
-  void showBottom(BuildContext context)
-  {
+  void showBottom(BuildContext context) {
     showBottomSheet(
       context: context,
       builder: (context) {
@@ -162,14 +212,23 @@ class _NewTasksScreenState extends State<NewTasksScreen>
                 ),
                 defaultButton(
                   text: 'add',
-                  whenPress: ()
-                  {
+                  whenPress: () {
                     String title = titleController.text;
                     String date = dateController.text;
 
-                    if(title.isEmpty || date.isEmpty)
-                    {
-                      print('please insert a valid data');
+                    if (title.isEmpty || date.isEmpty) {
+                      // warning - success - error
+
+                      Fluttertoast.showToast(
+                        msg: 'please insert a valid data',
+                        toastLength: Toast.LENGTH_LONG,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 5,
+                        backgroundColor: Colors.amber,
+                        textColor: Colors.white,
+                        fontSize: 16.0,
+                      );
+
                       return;
                     }
 
@@ -179,6 +238,13 @@ class _NewTasksScreenState extends State<NewTasksScreen>
                     ).then((value)
                     {
                       Navigator.pop(context);
+
+                      getData(database).then((value)
+                      {
+                        setState(() {
+                          list = value;
+                        });
+                      }).catchError((error) {});
                     });
                   },
                 ),
