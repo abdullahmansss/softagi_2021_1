@@ -1,9 +1,16 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:softagi_2021/layout/cubit/cubit.dart';
 import 'package:softagi_2021/layout/home_layout.dart';
+import 'package:softagi_2021/modules/counter_screen/counter_screen.dart';
+import 'package:softagi_2021/modules/counter_screen/cubit/cubit.dart';
+import 'package:softagi_2021/shared/bloc_observer.dart';
 
 // main method in app
-void main()
-{
+void main() {
+  Bloc.observer = MyBlocObserver();
+
   // run my app method
   // param is object from Widget class
   runApp(MyApp());
@@ -13,23 +20,29 @@ void main()
 // 2. stateful
 
 // main class extends widget
-class MyApp extends StatelessWidget
-{
+class MyApp extends StatelessWidget {
   // main method of class to build screen UI
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     // material app object wrap all screens
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.light,
-        fontFamily: 'Jannah',
-        primarySwatch: Colors.teal,
-      ),
-      home: Directionality(
-        textDirection: TextDirection.ltr,
-        child: HomeLayout(),
+    return MultiBlocProvider(
+      providers:
+      [
+        BlocProvider(
+          create: (BuildContext context) => TodoCubit()..openDb(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          brightness: Brightness.light,
+          fontFamily: 'Jannah',
+          primarySwatch: Colors.teal,
+        ),
+        home: Directionality(
+          textDirection: TextDirection.ltr,
+          child: HomeLayout(),
+        ),
       ),
     );
   }

@@ -1,22 +1,25 @@
+import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:softagi_2021/layout/cubit/cubit.dart';
+import 'package:softagi_2021/layout/cubit/states.dart';
+import 'package:softagi_2021/shared/components/components.dart';
 
-class ArchivedTasksScreen extends StatefulWidget
+class ArchivedTasksScreen extends StatelessWidget
 {
-  @override
-  _ArchivedTasksScreenState createState() => _ArchivedTasksScreenState();
-}
-
-class _ArchivedTasksScreenState extends State<ArchivedTasksScreen> {
   @override
   Widget build(BuildContext context)
   {
-    return Center(
-      child: Text(
-        'Archived Tasks',
-        style: TextStyle(
-          fontSize: 25.0,
-        ),
-      ),
+    return BlocConsumer<TodoCubit, TodoStates>(
+      listener: (context, state) {},
+      builder: (context, state)
+      {
+        var list = TodoCubit.get(context).archivedTasks;
+
+        return Scaffold(
+          body: tasksBuilder(list),
+        );
+      },
     );
   }
 }

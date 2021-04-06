@@ -1,4 +1,6 @@
+import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:softagi_2021/layout/cubit/cubit.dart';
 import 'package:softagi_2021/modules/contacts_screen/contacts_screen.dart';
 import 'package:softagi_2021/shared/styles/styles.dart';
 
@@ -239,5 +241,116 @@ void navigateTo({
   context,
   MaterialPageRoute(
     builder: (context) => widget,
+  ),
+);
+
+Widget taskItem(Map item, context) => Dismissible(
+  onDismissed: (direction)
+  {
+    TodoCubit.get(context).deleteData(item['id']);
+  },
+  key: Key('${item['id']}'),
+  child: Padding(
+    padding: const EdgeInsets.all(20.0),
+    child: Row(
+      children: [
+        CircleAvatar(
+          radius: 40.0,
+          child: Text(
+            item['status'],
+          ),
+        ),
+        SizedBox(
+          width: 20.0,
+        ),
+        Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                item['title'],
+                style: TextStyle(
+                  fontSize: 20.0,
+                ),
+              ),
+              Row(
+                children: [
+                  Text(
+                    item['data'],
+                  ),
+                  Spacer(),
+                  IconButton(
+                    onPressed: ()
+                    {
+                      TodoCubit.get(context).updateData(
+                        status: 'done',
+                        id: item['id'],
+                      );
+                    },
+                    icon: CircleAvatar(
+                      radius: 15.0,
+                      child: Icon(
+                        Icons.done,
+                        size: 14.0,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: (){
+                      TodoCubit.get(context).updateData(
+                        status: 'archived',
+                        id: item['id'],
+                      );
+                    },
+                    icon: CircleAvatar(
+                      radius: 15.0,
+                      child: Icon(
+                        Icons.archive_outlined,
+                        size: 14.0,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  ),
+);
+
+Widget tasksBuilder(list) => ConditionalBuilder(
+  condition: list != null,
+  builder: (context) => ConditionalBuilder(
+    condition: list.length > 0,
+    builder: (context) => ListView.separated(
+      itemBuilder: (context, index) => taskItem(list[index], context),
+      separatorBuilder: (context, index) => myDivider(),
+      itemCount: list.length,
+    ),
+    fallback: (context) => Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children:
+        [
+          Icon(
+            Icons.today_outlined,
+            size: 100.0,
+            color: Colors.grey,
+          ),
+          Text(
+            'No Tasks Yet, Please Add Some Tasks',
+            style: TextStyle(
+              color: Colors.grey,
+            ),
+          ),
+        ],
+      ),
+    ),
+  ),
+  fallback: (context) => Center(
+    child: CircularProgressIndicator(),
   ),
 );

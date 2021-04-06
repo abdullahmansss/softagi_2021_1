@@ -1,76 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:softagi_2021/modules/archived_tasks_screen/archived_tasks_screen.dart';
-import 'package:softagi_2021/modules/done_tasks_screen/done_tasks_screen.dart';
-import 'package:softagi_2021/modules/new_tasks_screen/new_tasks_screen.dart';
-import 'package:softagi_2021/modules/settings_screen/setting_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:softagi_2021/layout/cubit/cubit.dart';
+import 'package:softagi_2021/layout/cubit/states.dart';
 
-class HomeLayout extends StatefulWidget
+class HomeLayout extends StatelessWidget
 {
-  @override
-  _HomeLayoutState createState() => _HomeLayoutState();
-}
-
-class _HomeLayoutState extends State<HomeLayout>
-{
-  int currentIndex = 0;
-
-  List<Widget> myWidgets =
-  [
-    NewTasksScreen(),
-    DoneTasksScreen(),
-    ArchivedTasksScreen(),
-    SettingsScreen(),
-  ];
-
   @override
   Widget build(BuildContext context)
   {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Todo',
-        ),
-      ),
-      body: myWidgets[currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: currentIndex,
-        onTap: (int index)
-        {
-          setState(()
-          {
-            print(index);
-            currentIndex = index;
-          });
-        },
-        items:
-        [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
+    return BlocConsumer<TodoCubit, TodoStates>(
+      listener: (context, state)
+      {
+
+      },
+      builder: (context, state)
+      {
+        var cubit = TodoCubit.get(context);
+
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Todo',
             ),
-            label: 'Home',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.check_circle,
-            ),
-            label: 'Done',
+          body: cubit.myWidgets[cubit.currentIndex],
+          bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            currentIndex: cubit.currentIndex,
+            onTap: (int index)
+            {
+              cubit.changeBottom(index);
+            },
+            items:
+            [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                ),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.check_circle,
+                ),
+                label: 'Done',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.archive,
+                ),
+                label: 'Archived',
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.archive,
-            ),
-            label: 'Archived',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.settings,
-            ),
-            label: 'Settings',
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
