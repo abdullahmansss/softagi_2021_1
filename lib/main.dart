@@ -1,15 +1,19 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:softagi_2021/layout/cubit/cubit.dart';
-import 'package:softagi_2021/layout/home_layout.dart';
-import 'package:softagi_2021/modules/counter_screen/counter_screen.dart';
-import 'package:softagi_2021/modules/counter_screen/cubit/cubit.dart';
+import 'package:softagi_2021/layout/news_app/cubit/cubit.dart';
+import 'package:softagi_2021/layout/news_app/news_layout.dart';
 import 'package:softagi_2021/shared/bloc_observer.dart';
+import 'package:softagi_2021/shared/network/remote/dio_helper.dart';
 
 // main method in app
-void main() {
+void main()
+{
   Bloc.observer = MyBlocObserver();
+
+  DioHelper.init();
 
   // run my app method
   // param is object from Widget class
@@ -29,7 +33,10 @@ class MyApp extends StatelessWidget {
       providers:
       [
         BlocProvider(
-          create: (BuildContext context) => TodoCubit()..openDb(),
+          create: (BuildContext context) => TodoCubit(),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => NewsCubit()..getBusiness(),
         ),
       ],
       child: MaterialApp(
@@ -38,10 +45,27 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
           fontFamily: 'Jannah',
           primarySwatch: Colors.teal,
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.transparent,
+            elevation: 0.0,
+            titleTextStyle: TextStyle(
+              color: Colors.black,
+              fontSize: 20.0,
+              fontWeight: FontWeight.w800,
+            ),
+            iconTheme: IconThemeData(
+              color: Colors.black,
+            ),
+            backwardsCompatibility: false,
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              statusBarIconBrightness: Brightness.dark,
+            ),
+          ),
         ),
         home: Directionality(
           textDirection: TextDirection.ltr,
-          child: HomeLayout(),
+          child: NewsHomeScreen(),
         ),
       ),
     );
