@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           create: (BuildContext context) => TodoCubit(),
         ),
         BlocProvider(
-          create: (BuildContext context) => NewsCubit()..getBusiness(),
+          create: (BuildContext context) => NewsCubit()..getBusiness()..getSports()..getScience(),
         ),
       ],
       child: MaterialApp(

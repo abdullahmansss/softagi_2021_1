@@ -354,3 +354,68 @@ Widget tasksBuilder(list) => ConditionalBuilder(
     child: CircularProgressIndicator(),
   ),
 );
+
+Widget buildNewsItem(article) => Padding(
+  padding: const EdgeInsets.all(20.0),
+  child: Container(
+    height: 120.0,
+    child: Row(
+      children:
+      [
+        Container(
+          width: 120.0,
+          height: 120.0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(
+              10.0,
+            ),
+            image: DecorationImage(
+              image: NetworkImage(
+                '${article['urlToImage']}',
+              ),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 20.0,
+        ),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '${article['title']}',
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 18.0,
+                  height: 1.3,
+                ),
+              ),
+              Spacer(),
+              Text(
+                '${article['publishedAt']}',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  ),
+);
+
+Widget newsBuilder(list) => ConditionalBuilder(
+  condition: list.length > 0,
+  builder: (context) => ListView.separated(
+    physics: BouncingScrollPhysics(),
+    itemBuilder: (context, index) => buildNewsItem(list[index]),
+    separatorBuilder: (context, index) => myDivider(),
+    itemCount: list.length,
+  ),
+  fallback: (context) => Center(child: CircularProgressIndicator()),
+);
