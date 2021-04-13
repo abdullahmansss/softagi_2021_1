@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:softagi_2021/layout/cubit/cubit.dart';
 import 'package:softagi_2021/layout/news_app/cubit/cubit.dart';
+import 'package:softagi_2021/layout/news_app/cubit/states.dart';
 import 'package:softagi_2021/layout/news_app/news_layout.dart';
 import 'package:softagi_2021/shared/bloc_observer.dart';
 import 'package:softagi_2021/shared/network/remote/dio_helper.dart';
@@ -39,34 +40,78 @@ class MyApp extends StatelessWidget {
           create: (BuildContext context) => NewsCubit()..getBusiness()..getSports()..getScience(),
         ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          brightness: Brightness.light,
-          fontFamily: 'Jannah',
-          primarySwatch: Colors.teal,
-          appBarTheme: AppBarTheme(
-            backgroundColor: Colors.transparent,
-            elevation: 0.0,
-            titleTextStyle: TextStyle(
-              color: Colors.black,
-              fontSize: 20.0,
-              fontWeight: FontWeight.w800,
+      child: BlocConsumer<NewsCubit, NewsStates>(
+        listener: (context, state) {},
+        builder: (context, state)
+        {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              fontFamily: 'Jannah',
+              primarySwatch: Colors.teal,
+              appBarTheme: AppBarTheme(
+                backgroundColor: Colors.transparent,
+                elevation: 0.0,
+                titleTextStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w800,
+                ),
+                iconTheme: IconThemeData(
+                  color: Colors.black,
+                ),
+                backwardsCompatibility: false,
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: Colors.transparent,
+                  statusBarIconBrightness: Brightness.dark,
+                ),
+              ),
+              textTheme: TextTheme(
+                subtitle1: TextStyle(
+                  fontSize: 18.0,
+                  height: 1.5,
+                ),
+              ),
             ),
-            iconTheme: IconThemeData(
-              color: Colors.black,
+            darkTheme: ThemeData(
+              scaffoldBackgroundColor: Colors.white12,
+              fontFamily: 'Jannah',
+              primarySwatch: Colors.teal,
+              appBarTheme: AppBarTheme(
+                backgroundColor: Colors.transparent,
+                elevation: 0.0,
+                titleTextStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w800,
+                ),
+                iconTheme: IconThemeData(
+                  color: Colors.white,
+                ),
+                backwardsCompatibility: false,
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: Colors.transparent,
+                  statusBarIconBrightness: Brightness.light,
+                ),
+              ),
+              bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                backgroundColor: Colors.white12,
+              ),
+              textTheme: TextTheme(
+                subtitle1: TextStyle(
+                  fontSize: 18.0,
+                  color: Colors.white,
+                  height: 1.5,
+                ),
+              ),
             ),
-            backwardsCompatibility: false,
-            systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
-              statusBarIconBrightness: Brightness.dark,
+            themeMode: NewsCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
+            home: Directionality(
+              textDirection: TextDirection.ltr,
+              child: NewsHomeScreen(),
             ),
-          ),
-        ),
-        home: Directionality(
-          textDirection: TextDirection.ltr,
-          child: NewsHomeScreen(),
-        ),
+          );
+        },
       ),
     );
   }

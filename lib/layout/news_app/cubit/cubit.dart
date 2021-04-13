@@ -57,28 +57,6 @@ class NewsCubit extends Cubit<NewsStates> {
       print(error.toString());
       emit(NewsBusinessErrorState(error.toString()));
     });
-
-    // try
-    // {
-    //   Response response = await DioHelper.getData(
-    //     url: 'v2/top-headlines',
-    //     query:
-    //     {
-    //       'country':'eg',
-    //       'category':'business',
-    //       'apiKey':'65f7f556ec76449fa7dc7c0069f040ca',
-    //     },
-    //   );
-    //
-    //   print(response.data);
-    //   print(response.data['totalResults']);
-    //
-    //   emit(NewsBusinessSuccessState());
-    // } catch(error)
-    // {
-    //   print(error.toString());
-    //   emit(NewsBusinessErrorState(error.toString()));
-    // }
   }
 
   List<dynamic> sports = [];
@@ -106,28 +84,6 @@ class NewsCubit extends Cubit<NewsStates> {
       print(error.toString());
       emit(NewsSportsErrorState(error.toString()));
     });
-
-    // try
-    // {
-    //   Response response = await DioHelper.getData(
-    //     url: 'v2/top-headlines',
-    //     query:
-    //     {
-    //       'country':'eg',
-    //       'category':'business',
-    //       'apiKey':'65f7f556ec76449fa7dc7c0069f040ca',
-    //     },
-    //   );
-    //
-    //   print(response.data);
-    //   print(response.data['totalResults']);
-    //
-    //   emit(NewsBusinessSuccessState());
-    // } catch(error)
-    // {
-    //   print(error.toString());
-    //   emit(NewsBusinessErrorState(error.toString()));
-    // }
   }
 
   List<dynamic> science = [];
@@ -155,27 +111,14 @@ class NewsCubit extends Cubit<NewsStates> {
       print(error.toString());
       emit(NewsScienceErrorState(error.toString()));
     });
+  }
 
-    // try
-    // {
-    //   Response response = await DioHelper.getData(
-    //     url: 'v2/top-headlines',
-    //     query:
-    //     {
-    //       'country':'eg',
-    //       'category':'business',
-    //       'apiKey':'65f7f556ec76449fa7dc7c0069f040ca',
-    //     },
-    //   );
-    //
-    //   print(response.data);
-    //   print(response.data['totalResults']);
-    //
-    //   emit(NewsBusinessSuccessState());
-    // } catch(error)
-    // {
-    //   print(error.toString());
-    //   emit(NewsBusinessErrorState(error.toString()));
-    // }
+  bool isDark = false;
+
+  void changeThemeMode()
+  {
+    isDark = !isDark;
+
+    emit(NewsChangeThemeModeState());
   }
 }

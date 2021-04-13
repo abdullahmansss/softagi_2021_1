@@ -36,3 +36,5 @@ class NewsScienceErrorState extends NewsStates
 
   NewsScienceErrorState(this.error);
 }
+
+class NewsChangeThemeModeState extends NewsStates {}

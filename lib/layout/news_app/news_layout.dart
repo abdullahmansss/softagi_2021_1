@@ -19,6 +19,15 @@ class NewsHomeScreen extends StatelessWidget
             ),
             actions: [
               IconButton(
+                onPressed: ()
+                {
+                  NewsCubit.get(context).changeThemeMode();
+                },
+                icon: Icon(
+                  Icons.brightness_6_outlined,
+                ),
+              ),
+              IconButton(
                 onPressed: (){},
                 icon: Icon(
                   Icons.search,

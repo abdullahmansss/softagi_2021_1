@@ -14,7 +14,7 @@ class ScienceScreen extends StatelessWidget {
           onRefresh: () async {
             NewsCubit.get(context).getScience();
           },
-          child: newsBuilder(NewsCubit.get(context).science),
+          child: newsBuilder(NewsCubit.get(context).science, context),
         );
       },
     );
