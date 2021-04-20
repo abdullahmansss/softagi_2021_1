@@ -7,18 +7,36 @@ import 'package:softagi_2021/layout/news_app/cubit/cubit.dart';
 import 'package:softagi_2021/layout/news_app/cubit/states.dart';
 import 'package:softagi_2021/layout/news_app/news_layout.dart';
 import 'package:softagi_2021/shared/bloc_observer.dart';
+import 'package:softagi_2021/shared/network/local/cache_helper.dart';
 import 'package:softagi_2021/shared/network/remote/dio_helper.dart';
 
 // main method in app
-void main()
-{
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   Bloc.observer = MyBlocObserver();
 
   DioHelper.init();
+  await CacheHelper.init();
+
+  var isDark = CacheHelper.getData(
+    key: 'isDark',
+  );
+
+  var countryCode = CacheHelper.getData(
+    key: 'countryCode',
+  );
+
+  print(isDark);
 
   // run my app method
   // param is object from Widget class
-  runApp(MyApp());
+  runApp(
+    MyApp(
+      isDark: isDark,
+      countryCode: countryCode,
+    ),
+  );
 }
 
 // 1. stateless
@@ -27,23 +45,36 @@ void main()
 // main class extends widget
 class MyApp extends StatelessWidget {
   // main method of class to build screen UI
+  final bool isDark;
+  final String countryCode;
+
+  MyApp({
+    this.isDark,
+    this.countryCode,
+  });
+
   @override
   Widget build(BuildContext context) {
     // material app object wrap all screens
     return MultiBlocProvider(
-      providers:
-      [
+      providers: [
         BlocProvider(
           create: (BuildContext context) => TodoCubit(),
         ),
         BlocProvider(
-          create: (BuildContext context) => NewsCubit()..getBusiness()..getSports()..getScience(),
+          create: (BuildContext context) => NewsCubit()
+            ..setDataFromSharedPreferences(
+              fromShared: isDark,
+              savedCountryCode: countryCode,
+            )
+            ..getBusiness()
+            ..getSports()
+            ..getScience(),
         ),
       ],
       child: BlocConsumer<NewsCubit, NewsStates>(
         listener: (context, state) {},
-        builder: (context, state)
-        {
+        builder: (context, state) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
@@ -105,7 +136,9 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             ),
-            themeMode: NewsCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
+            themeMode: NewsCubit.get(context).isDark
+                ? ThemeMode.dark
+                : ThemeMode.light,
             home: Directionality(
               textDirection: TextDirection.ltr,
               child: NewsHomeScreen(),

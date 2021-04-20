@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:softagi_2021/layout/news_app/cubit/states.dart';
 import 'package:softagi_2021/modules/news_app/business_screen.dart';
+import 'package:softagi_2021/modules/news_app/news_settings_screen.dart';
 import 'package:softagi_2021/modules/news_app/science_screen.dart';
 import 'package:softagi_2021/modules/news_app/sports_screen.dart';
+import 'package:softagi_2021/shared/network/local/cache_helper.dart';
 import 'package:softagi_2021/shared/network/remote/dio_helper.dart';
 
 class NewsCubit extends Cubit<NewsStates> {
@@ -18,36 +20,34 @@ class NewsCubit extends Cubit<NewsStates> {
     BusinessScreen(),
     SportsScreen(),
     ScienceScreen(),
+    NewsSettingsScreen(),
   ];
 
   List<String> titles = [
     'Business',
     'Sports',
     'Science',
+    'Settings',
   ];
 
-  void changeIndex(int index)
-  {
+  void changeIndex(int index) {
     currentIndex = index;
     emit(NewsChangeBottomNavState());
   }
 
   List<dynamic> business = [];
 
-  void getBusiness()
-  {
+  void getBusiness() {
     emit(NewsBusinessLoadingState());
 
     DioHelper.getData(
       url: 'v2/top-headlines',
-      query:
-      {
-        'country':'eg',
-        'category':'business',
-        'apiKey':'65f7f556ec76449fa7dc7c0069f040ca',
+      query: {
+        'country': countryCode,
+        'category': 'business',
+        'apiKey': 'fa66ecc50e45431ebc3e3effe4d152c5',
       },
-    ).then((response)
-    {
+    ).then((response) {
       print(response.data);
       business = response.data['articles'];
       print(business.length);
@@ -61,20 +61,17 @@ class NewsCubit extends Cubit<NewsStates> {
 
   List<dynamic> sports = [];
 
-  void getSports()
-  {
+  void getSports() {
     emit(NewsSportsLoadingState());
 
     DioHelper.getData(
       url: 'v2/top-headlines',
-      query:
-      {
-        'country':'eg',
-        'category':'sports',
-        'apiKey':'65f7f556ec76449fa7dc7c0069f040ca',
+      query: {
+        'country': countryCode,
+        'category': 'sports',
+        'apiKey': 'fa66ecc50e45431ebc3e3effe4d152c5',
       },
-    ).then((response)
-    {
+    ).then((response) {
       print(response.data);
       sports = response.data['articles'];
       print(sports.length);
@@ -88,20 +85,17 @@ class NewsCubit extends Cubit<NewsStates> {
 
   List<dynamic> science = [];
 
-  void getScience()
-  {
+  void getScience() {
     emit(NewsScienceLoadingState());
 
     DioHelper.getData(
       url: 'v2/top-headlines',
-      query:
-      {
-        'country':'eg',
-        'category':'science',
-        'apiKey':'65f7f556ec76449fa7dc7c0069f040ca',
+      query: {
+        'country': countryCode,
+        'category': 'science',
+        'apiKey': 'fa66ecc50e45431ebc3e3effe4d152c5',
       },
-    ).then((response)
-    {
+    ).then((response) {
       print(response.data);
       science = response.data['articles'];
       print(science.length);
@@ -113,12 +107,90 @@ class NewsCubit extends Cubit<NewsStates> {
     });
   }
 
+  List<dynamic> search = [];
+
+  void startSearch(String text) {
+    emit(NewsSearchLoadingState());
+
+    DioHelper.getData(
+      url: 'v2/everything',
+      query: {
+        'q': text,
+        'apiKey': 'fa66ecc50e45431ebc3e3effe4d152c5',
+      },
+    ).then((response) {
+      print(response.data);
+      search = response.data['articles'];
+      print(search.length);
+
+      emit(NewsSearchSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(NewsSearchErrorState(error.toString()));
+    });
+  }
+
   bool isDark = false;
 
-  void changeThemeMode()
-  {
+  void changeThemeMode() {
     isDark = !isDark;
+    CacheHelper.setData(
+      key: 'isDark',
+      value: isDark,
+    ).then((value) {
+      print('success');
+      emit(NewsChangeThemeModeState());
+    });
+  }
+
+  void setDataFromSharedPreferences({
+  @required bool fromShared,
+  @required String savedCountryCode,
+})
+  {
+    isDark = fromShared;
+    countryCode = savedCountryCode;
+
+    switch (countryCode)
+    {
+      case 'eg':
+        selectedCountry = 'Egypt';
+        break;
+      case 'us':
+        selectedCountry = 'United States';
+        break;
+    }
 
     emit(NewsChangeThemeModeState());
+  }
+
+  String selectedCountry = 'Egypt';
+  String countryCode = 'eg';
+
+  void changeSelectedCountry(String value)
+  {
+    selectedCountry = value;
+
+    switch (selectedCountry)
+    {
+      case 'Egypt':
+        countryCode = 'eg';
+        break;
+      case 'United States':
+        countryCode = 'us';
+        break;
+    }
+
+    CacheHelper.setData(
+      key: 'countryCode',
+      value: countryCode,
+    ).then((value)
+    {
+      getBusiness();
+      getSports();
+      getScience();
+
+      emit(NewsChangeSelectedCountryState());
+    });
   }
 }

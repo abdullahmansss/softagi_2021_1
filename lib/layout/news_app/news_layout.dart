@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:softagi_2021/layout/news_app/cubit/cubit.dart';
 import 'package:softagi_2021/layout/news_app/cubit/states.dart';
+import 'package:softagi_2021/modules/news_app/search_screen.dart';
+import 'package:softagi_2021/shared/components/components.dart';
 
 class NewsHomeScreen extends StatelessWidget
 {
@@ -28,7 +30,10 @@ class NewsHomeScreen extends StatelessWidget
                 ),
               ),
               IconButton(
-                onPressed: (){},
+                onPressed: ()
+                {
+                  navigateTo(context: context, widget: SearchScreen(),);
+                },
                 icon: Icon(
                   Icons.search,
                 ),
@@ -62,6 +67,12 @@ class NewsHomeScreen extends StatelessWidget
                   Icons.science,
                 ),
                 label: 'Science',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.settings,
+                ),
+                label: 'Settings',
               ),
             ],
           ),
