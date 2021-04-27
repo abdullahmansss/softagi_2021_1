@@ -33,15 +33,21 @@ Widget defaultFormField({
   @required TextEditingController controller,
   @required TextInputType type,
   @required String label,
+  String validate,
   @required IconData icon,
-  @required Function onSubmit,
   @required Function onChange,
 }) =>
-    TextField(
+    TextFormField(
       controller: controller,
       keyboardType: type,
-      onSubmitted: onSubmit,
       onChanged: onChange,
+      validator: (String value)
+      {
+        if(value.isEmpty)
+          return validate;
+
+        return null;
+      },
       decoration: InputDecoration(
         border: OutlineInputBorder(),
         labelText: label,

@@ -61,7 +61,6 @@ class NewTasksScreen extends StatelessWidget
                   type: TextInputType.text,
                   label: 'Task Title',
                   icon: Icons.title,
-                  onSubmit: (String value) {},
                   onChange: (String char) {},
                 ),
                 SizedBox(
@@ -72,7 +71,6 @@ class NewTasksScreen extends StatelessWidget
                   type: TextInputType.datetime,
                   label: 'Task Date',
                   icon: Icons.date_range,
-                  onSubmit: (String value) {},
                   onChange: (String char) {},
                 ),
                 SizedBox(

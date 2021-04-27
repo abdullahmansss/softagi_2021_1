@@ -67,10 +67,6 @@ class _HomeScreenState extends State<HomeScreen>
                 icon: Icons.email,
                 label: 'Email Address',
                 type: TextInputType.emailAddress,
-                onSubmit: (value)
-                {
-                  print(value);
-                },
                 onChange: (value)
                 {
                   print(value);
@@ -84,9 +80,6 @@ class _HomeScreenState extends State<HomeScreen>
                 icon: Icons.lock_outline,
                 label: 'Password',
                 type: TextInputType.visiblePassword,
-                onSubmit: (value) {
-                  print(value);
-                },
                 onChange: (value) {
                   print(value);
                 },

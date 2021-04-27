@@ -28,10 +28,6 @@ class SearchScreen extends StatelessWidget {
                   type: TextInputType.text,
                   label: 'Search',
                   icon: Icons.search,
-                  onSubmit: (value)
-                  {
-                    NewsCubit.get(context).startSearch(value);
-                  },
                   onChange: (value)
                   {
                     NewsCubit.get(context).startSearch(value);
