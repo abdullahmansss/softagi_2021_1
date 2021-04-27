@@ -9,7 +9,8 @@ import 'package:softagi_2021/modules/news_app/sports_screen.dart';
 import 'package:softagi_2021/shared/network/local/cache_helper.dart';
 import 'package:softagi_2021/shared/network/remote/dio_helper.dart';
 
-class NewsCubit extends Cubit<NewsStates> {
+class NewsCubit extends Cubit<NewsStates>
+{
   NewsCubit() : super(NewsInitialState());
 
   static NewsCubit get(context) => BlocProvider.of(context);
@@ -43,7 +44,7 @@ class NewsCubit extends Cubit<NewsStates> {
     DioHelper.getData(
       url: 'v2/top-headlines',
       query: {
-        'country': countryCode,
+        'country': 'eg',
         'category': 'business',
         'apiKey': 'fa66ecc50e45431ebc3e3effe4d152c5',
       },
@@ -67,7 +68,7 @@ class NewsCubit extends Cubit<NewsStates> {
     DioHelper.getData(
       url: 'v2/top-headlines',
       query: {
-        'country': countryCode,
+        'country': 'eg',
         'category': 'sports',
         'apiKey': 'fa66ecc50e45431ebc3e3effe4d152c5',
       },
@@ -90,8 +91,9 @@ class NewsCubit extends Cubit<NewsStates> {
 
     DioHelper.getData(
       url: 'v2/top-headlines',
-      query: {
-        'country': countryCode,
+      query:
+      {
+        'country': 'eg',
         'category': 'science',
         'apiKey': 'fa66ecc50e45431ebc3e3effe4d152c5',
       },
@@ -167,19 +169,19 @@ class NewsCubit extends Cubit<NewsStates> {
   String selectedCountry = 'Egypt';
   String countryCode = 'eg';
 
-  void changeSelectedCountry(String value)
+  void changeSelectedCountry(String code)
   {
-    selectedCountry = value;
+    countryCode = code;
 
-    switch (selectedCountry)
-    {
-      case 'Egypt':
-        countryCode = 'eg';
-        break;
-      case 'United States':
-        countryCode = 'us';
-        break;
-    }
+    // switch (selectedCountry)
+    // {
+    //   case 'Egypt':
+    //     countryCode = 'eg';
+    //     break;
+    //   case 'United States':
+    //     countryCode = 'us';
+    //     break;
+    // }
 
     CacheHelper.setData(
       key: 'countryCode',

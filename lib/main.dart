@@ -12,6 +12,7 @@ import 'package:softagi_2021/shared/network/remote/dio_helper.dart';
 
 // main method in app
 void main() async {
+  // عشان يتأكد ان كل حاجه المفروض تحصل قبل ما يرن لابلكيشن انها حصلت فعلا و خلصت
   WidgetsFlutterBinding.ensureInitialized();
 
   Bloc.observer = MyBlocObserver();
@@ -43,7 +44,8 @@ void main() async {
 // 2. stateful
 
 // main class extends widget
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget
+{
   // main method of class to build screen UI
   final bool isDark;
   final String countryCode;
@@ -136,9 +138,7 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             ),
-            themeMode: NewsCubit.get(context).isDark
-                ? ThemeMode.dark
-                : ThemeMode.light,
+            themeMode: ThemeMode.light,
             home: Directionality(
               textDirection: TextDirection.ltr,
               child: NewsHomeScreen(),
@@ -179,3 +179,7 @@ class MyApp extends StatelessWidget {
 
 // stateless
 // stateful
+
+// base : https://student.valuxapps.com/
+// url : api/login
+

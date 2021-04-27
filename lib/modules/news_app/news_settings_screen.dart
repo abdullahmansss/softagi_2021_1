@@ -5,8 +5,28 @@ import 'package:softagi_2021/layout/news_app/cubit/cubit.dart';
 import 'package:softagi_2021/layout/news_app/cubit/states.dart';
 import 'package:softagi_2021/shared/components/components.dart';
 
+class Countries
+{
+  final String country;
+  final String code;
+
+  Countries({this.country, this.code});
+}
+
 class NewsSettingsScreen extends StatelessWidget
 {
+  List<Countries> countries =
+  [
+    Countries(
+      country: 'Egypt',
+      code: 'eg',
+    ),
+    Countries(
+      country: 'United States',
+      code: 'us',
+    ),
+  ];
+
   @override
   Widget build(BuildContext context)
   {
@@ -57,16 +77,17 @@ class NewsSettingsScreen extends StatelessWidget
                     ),
                   ),
                   DropdownButton<String>(
-                    items: <String>['Egypt', 'United States'].map((String value)
+                    items: countries.map((Countries value)
                     {
                       return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
+                        value: value.country,
+                        child: Text(value.country),
                       );
                     }).toList(),
                     value: NewsCubit.get(context).selectedCountry,
                     onChanged: (value)
                     {
+                      print(value);
                       NewsCubit.get(context).changeSelectedCountry(value);
                     },
                   ),

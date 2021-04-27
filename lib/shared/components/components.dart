@@ -2,6 +2,7 @@ import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:softagi_2021/layout/cubit/cubit.dart';
 import 'package:softagi_2021/modules/contacts_screen/contacts_screen.dart';
+import 'package:softagi_2021/modules/news_app/web_view_screen.dart';
 import 'package:softagi_2021/shared/styles/styles.dart';
 
 Widget defaultButton({
@@ -355,53 +356,60 @@ Widget tasksBuilder(list) => ConditionalBuilder(
   ),
 );
 
-Widget buildNewsItem(article, context) => Padding(
-  padding: const EdgeInsets.all(20.0),
-  child: Container(
-    height: 120.0,
-    child: Row(
-      children:
-      [
-        Container(
-          width: 120.0,
-          height: 120.0,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-              10.0,
-            ),
-            image: DecorationImage(
-              image: NetworkImage(
-                '${article['urlToImage']}',
+Widget buildNewsItem(article, context) => InkWell(
+  onTap: (){
+    navigateTo(context: context, widget: WebViewScreen(
+      url: article['url'],
+    ),);
+  },
+  child:   Padding(
+    padding: const EdgeInsets.all(20.0),
+    child: Container(
+      height: 120.0,
+      child: Row(
+        children:
+        [
+          Container(
+            width: 120.0,
+            height: 120.0,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(
+                10.0,
               ),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        SizedBox(
-          width: 20.0,
-        ),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '${article['title']}',
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.subtitle1,
-              ),
-              Spacer(),
-              Text(
-                '${article['publishedAt']}',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey,
+              image: DecorationImage(
+                image: NetworkImage(
+                  '${article['urlToImage']}',
                 ),
+                fit: BoxFit.cover,
               ),
-            ],
+            ),
           ),
-        ),
-      ],
+          SizedBox(
+            width: 20.0,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${article['title']}',
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                Spacer(),
+                Text(
+                  '${article['publishedAt']}',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     ),
   ),
 );
