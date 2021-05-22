@@ -75,10 +75,12 @@ class SignInScreen extends StatelessWidget
                             defaultButton(
                               whenPress: ()
                               {
-                                if (formKey.currentState.validate()) {
+                                if (formKey.currentState.validate())
+                                {
                                   SignInCubit.get(context).userSignIn(
                                     email: emailController.text.trim(),
                                     password: passwordController.text.trim(),
+                                    context: context,
                                   );
                                 }
                               },

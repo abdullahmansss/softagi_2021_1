@@ -23,7 +23,7 @@ class DioHelper
   {
     dio.options.headers =
     {
-      'lang':'ar',
+      'lang':'en',
       'Content-Type':'application/json',
       if(token != null)
         'Authorization':token,
@@ -43,7 +43,7 @@ class DioHelper
   {
     dio.options.headers =
     {
-      'lang':'ar',
+      'lang':'en',
       'Content-Type':'application/json',
       if(token != null)
         'Authorization':token,

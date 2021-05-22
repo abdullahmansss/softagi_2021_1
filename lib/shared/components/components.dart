@@ -251,6 +251,20 @@ void navigateTo({
   ),
 );
 
+void navigateAndFinish({
+  context,
+  widget,
+}) =>
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => widget,
+      ),
+          (route) {
+        return false;
+      },
+    );
+
 Widget taskItem(Map item, context) => Dismissible(
   onDismissed: (direction)
   {
@@ -430,3 +444,17 @@ Widget newsBuilder(list, context) => ConditionalBuilder(
   ),
   fallback: (context) => Center(child: CircularProgressIndicator()),
 );
+
+class AppNavigator
+{
+  static void navigateTo(BuildContext context, bool back, Widget widget)
+  {
+    MaterialPageRoute route = MaterialPageRoute(builder: (context) => widget);
+    if (back)
+    {
+      Navigator.of(context).push(route);
+    } else {
+      Navigator.of(context).pushReplacement(route);
+    }
+  }
+}

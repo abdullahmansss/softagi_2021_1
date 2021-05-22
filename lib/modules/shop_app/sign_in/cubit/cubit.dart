@@ -2,13 +2,16 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:softagi_2021/layout/shop_app/shop_layout.dart';
 import 'package:softagi_2021/models/shop_app/user_model.dart';
 import 'package:softagi_2021/modules/shop_app/sign_in/cubit/states.dart';
+import 'package:softagi_2021/shared/components/components.dart';
 import 'package:softagi_2021/shared/network/end_points.dart';
 import 'package:softagi_2021/shared/network/local/cache_helper.dart';
 import 'package:softagi_2021/shared/network/remote/dio_helper.dart';
 
-class SignInCubit extends Cubit<SignInStates> {
+class SignInCubit extends Cubit<SignInStates>
+{
   SignInCubit() : super(SingInInitialState());
 
   static SignInCubit get(context) => BlocProvider.of(context);
@@ -18,7 +21,9 @@ class SignInCubit extends Cubit<SignInStates> {
   void userSignIn({
     @required String email,
     @required String password,
-  }) async {
+    @required BuildContext context,
+  }) async
+  {
     emit(SingInLoadingState());
 
     // try
@@ -57,12 +62,10 @@ class SignInCubit extends Cubit<SignInStates> {
         'email': email,
         'password': password,
       },
-    ).then((value)
-    {
+    ).then((value) {
       userModel = UserModel.fromJson(value.data);
 
-      if (userModel.status)
-      {
+      if (userModel.status) {
         print('success');
         print(value.statusCode);
         print(userModel.data.name);
@@ -73,8 +76,11 @@ class SignInCubit extends Cubit<SignInStates> {
           value: jsonEncode(value.data),
         );
 
-      } else
-        {
+        navigateAndFinish(
+          context: context,
+          widget: ShopLayout(),
+        );
+      } else {
         print(userModel.message);
       }
 

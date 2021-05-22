@@ -8,9 +8,12 @@ import 'package:softagi_2021/layout/cubit/cubit.dart';
 import 'package:softagi_2021/layout/news_app/cubit/cubit.dart';
 import 'package:softagi_2021/layout/news_app/cubit/states.dart';
 import 'package:softagi_2021/layout/news_app/news_layout.dart';
+import 'package:softagi_2021/layout/shop_app/cubit/cubit.dart';
+import 'package:softagi_2021/layout/shop_app/shop_layout.dart';
 import 'package:softagi_2021/models/shop_app/user_model.dart';
 import 'package:softagi_2021/modules/shop_app/sign_in/sign_in_screen.dart';
 import 'package:softagi_2021/shared/bloc_observer.dart';
+import 'package:softagi_2021/shared/constants.dart';
 import 'package:softagi_2021/shared/network/local/cache_helper.dart';
 import 'package:softagi_2021/shared/network/remote/dio_helper.dart';
 
@@ -32,15 +35,25 @@ void main() async {
     key: 'countryCode',
   );
 
-  var userData = CacheHelper.getData(
+  Widget start;
+
+  var userRawData = CacheHelper.getData(
     key: 'userData',
   );
 
-  UserModel userModel = UserModel.fromJson(jsonDecode(userData));
+  if (userRawData != null)
+  {
+    userModel = UserModel.fromJson(jsonDecode(userRawData));
 
-  print(userModel.data.name);
-  print(userModel.data.email);
-  print(userModel.data.token);
+    print(userModel.data.name);
+    print(userModel.data.email);
+    print(userModel.data.token);
+
+    start = ShopLayout();
+  } else
+    {
+      start = SignInScreen();
+    }
 
   // run my app method
   // param is object from Widget class
@@ -48,6 +61,7 @@ void main() async {
     MyApp(
       isDark: isDark,
       countryCode: countryCode,
+      start: start,
     ),
   );
 }
@@ -56,85 +70,95 @@ void main() async {
 // 2. stateful
 
 // main class extends widget
-class MyApp extends StatelessWidget
-{
+class MyApp extends StatelessWidget {
   // main method of class to build screen UI
   final bool isDark;
   final String countryCode;
+  final Widget start;
 
   MyApp({
     this.isDark,
     this.countryCode,
+    this.start,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     // material app object wrap all screens
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'Jannah',
-        primarySwatch: Colors.teal,
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          titleTextStyle: TextStyle(
-            color: Colors.black,
-            fontSize: 20.0,
-            fontWeight: FontWeight.w800,
+    return MultiBlocProvider(
+      providers:
+      [
+        BlocProvider(
+          create: (BuildContext context) => ShopCubit(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: 'Jannah',
+          primarySwatch: Colors.teal,
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.transparent,
+            elevation: 0.0,
+            titleTextStyle: TextStyle(
+              color: Colors.black,
+              fontSize: 20.0,
+              fontWeight: FontWeight.w800,
+            ),
+            iconTheme: IconThemeData(
+              color: Colors.black,
+            ),
+            backwardsCompatibility: false,
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              statusBarIconBrightness: Brightness.dark,
+            ),
           ),
-          iconTheme: IconThemeData(
-            color: Colors.black,
-          ),
-          backwardsCompatibility: false,
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
-            statusBarIconBrightness: Brightness.dark,
+          textTheme: TextTheme(
+            subtitle1: TextStyle(
+              fontSize: 18.0,
+              height: 1.5,
+            ),
           ),
         ),
-        textTheme: TextTheme(
-          subtitle1: TextStyle(
-            fontSize: 18.0,
-            height: 1.5,
+        darkTheme: ThemeData(
+          scaffoldBackgroundColor: Colors.white12,
+          fontFamily: 'Jannah',
+          primarySwatch: Colors.teal,
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.transparent,
+            elevation: 0.0,
+            titleTextStyle: TextStyle(
+              color: Colors.white,
+              fontSize: 20.0,
+              fontWeight: FontWeight.w800,
+            ),
+            iconTheme: IconThemeData(
+              color: Colors.white,
+            ),
+            backwardsCompatibility: false,
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              statusBarIconBrightness: Brightness.light,
+            ),
+          ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Colors.white12,
+          ),
+          textTheme: TextTheme(
+            subtitle1: TextStyle(
+              fontSize: 18.0,
+              color: Colors.white,
+              height: 1.5,
+            ),
           ),
         ),
-      ),
-      darkTheme: ThemeData(
-        scaffoldBackgroundColor: Colors.white12,
-        fontFamily: 'Jannah',
-        primarySwatch: Colors.teal,
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          titleTextStyle: TextStyle(
-            color: Colors.white,
-            fontSize: 20.0,
-            fontWeight: FontWeight.w800,
-          ),
-          iconTheme: IconThemeData(
-            color: Colors.white,
-          ),
-          backwardsCompatibility: false,
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
-            statusBarIconBrightness: Brightness.light,
-          ),
+        themeMode: ThemeMode.light,
+        home: Directionality(
+          textDirection: TextDirection.ltr,
+          child: start,
         ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Colors.white12,
-        ),
-        textTheme: TextTheme(
-          subtitle1: TextStyle(
-            fontSize: 18.0,
-            color: Colors.white,
-            height: 1.5,
-          ),
-        ),
-      ),
-      themeMode: ThemeMode.light,
-      home: Directionality(
-        textDirection: TextDirection.ltr,
-        child: SignInScreen(),
       ),
     );
   }
@@ -172,4 +196,3 @@ class MyApp extends StatelessWidget
 
 // base : https://student.valuxapps.com/
 // url : api/login
-
