@@ -69,9 +69,9 @@ class SignInScreen extends StatelessWidget
                           SizedBox(
                             height: 20.0,
                           ),
-                          if (state is SingInLoadingState)
+                          if (state is SignInLoadingState)
                             Center(child: CircularProgressIndicator()),
-                          if (state is! SingInLoadingState)
+                          if (state is! SignInLoadingState)
                             defaultButton(
                               whenPress: ()
                               {

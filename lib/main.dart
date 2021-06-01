@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,9 +12,14 @@ import 'package:softagi_2021/layout/news_app/cubit/states.dart';
 import 'package:softagi_2021/layout/news_app/news_layout.dart';
 import 'package:softagi_2021/layout/shop_app/cubit/cubit.dart';
 import 'package:softagi_2021/layout/shop_app/shop_layout.dart';
+import 'package:softagi_2021/layout/social_app/cubit/cubit.dart';
+import 'package:softagi_2021/layout/social_app/social_layout.dart';
 import 'package:softagi_2021/models/shop_app/user_model.dart';
+import 'package:softagi_2021/modules/shop_app/sign_in/cubit/cubit.dart';
 import 'package:softagi_2021/modules/shop_app/sign_in/sign_in_screen.dart';
+import 'package:softagi_2021/modules/social_app/login/social_sign_in_screen.dart';
 import 'package:softagi_2021/shared/bloc_observer.dart';
+import 'package:softagi_2021/shared/components/components.dart';
 import 'package:softagi_2021/shared/constants.dart';
 import 'package:softagi_2021/shared/network/local/cache_helper.dart';
 import 'package:softagi_2021/shared/network/remote/dio_helper.dart';
@@ -21,6 +28,8 @@ import 'package:softagi_2021/shared/network/remote/dio_helper.dart';
 void main() async {
   // عشان يتأكد ان كل حاجه المفروض تحصل قبل ما يرن لابلكيشن انها حصلت فعلا و خلصت
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
 
   Bloc.observer = MyBlocObserver();
 
@@ -37,22 +46,32 @@ void main() async {
 
   Widget start;
 
-  var userRawData = CacheHelper.getData(
-    key: 'userData',
-  );
+  // var userRawData = CacheHelper.getData(
+  //   key: 'userData',
+  // );
+  //
+  // if (userRawData != null)
+  // {
+  //   userModel = UserModel.fromJson(jsonDecode(userRawData));
+  //
+  //   print(userModel.data.name);
+  //   print(userModel.data.email);
+  //   print(userModel.data.token);
+  //
+  //   start = ShopLayout();
+  // } else
+  //   {
+  //     start = SignInScreen();
+  //   }
 
-  if (userRawData != null)
+  currentUser = FirebaseAuth.instance.currentUser;
+
+  if(currentUser != null)
   {
-    userModel = UserModel.fromJson(jsonDecode(userRawData));
-
-    print(userModel.data.name);
-    print(userModel.data.email);
-    print(userModel.data.token);
-
-    start = ShopLayout();
+    start = SocialLayout();
   } else
     {
-      start = SignInScreen();
+      start = SocialSignInScreen();
     }
 
   // run my app method
@@ -91,6 +110,12 @@ class MyApp extends StatelessWidget {
       [
         BlocProvider(
           create: (BuildContext context) => ShopCubit(),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => SocialCubit(),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => SignInCubit(),
         ),
       ],
       child: MaterialApp(

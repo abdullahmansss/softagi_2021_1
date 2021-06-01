@@ -28,10 +28,16 @@ dependencies:
   conditional_builder: ^1.0.2
   flutter_bloc: ^7.0.0
   bloc: ^7.0.0
-  dio: ^4.0.0
+  dio:
   shared_preferences: ^2.0.5
   webview_flutter: ^2.0.4
   carousel_slider: ^3.0.0
+
+  # firebase
+  firebase_core: ^1.2.0
+  firebase_auth: ^1.2.0
+  google_sign_in: ^5.0.4
+  cloud_firestore: ^2.2.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

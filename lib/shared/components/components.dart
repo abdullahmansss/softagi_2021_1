@@ -1,9 +1,12 @@
 import 'package:conditional_builder/conditional_builder.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:softagi_2021/layout/cubit/cubit.dart';
 import 'package:softagi_2021/modules/contacts_screen/contacts_screen.dart';
 import 'package:softagi_2021/modules/news_app/web_view_screen.dart';
 import 'package:softagi_2021/shared/styles/styles.dart';
+
+User currentUser;
 
 Widget defaultButton({
   @required Function whenPress,

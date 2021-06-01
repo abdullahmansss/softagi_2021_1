@@ -1,9 +1,25 @@
 abstract class SignInStates {}
 
-class SingInInitialState extends SignInStates {}
+class SignInInitialState extends SignInStates {}
 
-class SingInLoadingState extends SignInStates {}
+class SignInLoadingState extends SignInStates {}
 
-class SingInSuccessState extends SignInStates {}
+class SignInSuccessState extends SignInStates {
+  final String error;
 
-class SingInErrorState extends SignInStates {}
+  SignInSuccessState({this.error});
+}
+
+class SignInErrorState extends SignInStates {
+  final String error;
+
+  SignInErrorState({this.error});
+}
+
+class RegisterLoadingState extends SignInStates {}
+
+class RegisterSuccessState extends SignInStates {}
+
+class RegisterErrorState extends SignInStates {}
+
+class CodeSentSuccessState extends SignInStates {}
