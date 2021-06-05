@@ -15,3 +15,17 @@ class SocialGetUsersLoadingState extends SocialStates {}
 class SocialGetUsersSuccessState extends SocialStates {}
 
 class SocialGetUsersErrorState extends SocialStates {}
+
+class SocialProfileImagePickedSuccessState extends SocialStates {}
+
+class SocialProfileImagePickedErrorState extends SocialStates {}
+
+class SocialUploadProfileImageLoadingState extends SocialStates {}
+
+class SocialUploadProfileImageSuccessState extends SocialStates {}
+
+class SocialUploadProfileImageErrorState extends SocialStates {}
+
+class SocialUpdateUserDataSuccessState extends SocialStates {}
+
+class SocialUpdateUserDataErrorState extends SocialStates {}

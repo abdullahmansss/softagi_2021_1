@@ -24,9 +24,18 @@ class SocialSettingsScreen extends StatelessWidget {
                   width: 100.0,
                   height: 100.0,
                   child: Image(
-                    image: NetworkImage(
-                        SocialCubit.get(context).socialUserModel.image),
+                    image: SocialCubit.get(context).profileImage == null ? NetworkImage(
+                        SocialCubit.get(context).socialUserModel.image) : FileImage(SocialCubit.get(context).profileImage),
                     fit: BoxFit.cover,
+                  ),
+                ),
+                OutlinedButton(
+                  onPressed: ()
+                  {
+                    SocialCubit.get(context).getProfileImage();
+                  },
+                  child: Text(
+                    'choose image',
                   ),
                 ),
                 SizedBox(

@@ -14,4 +14,15 @@ class SocialUserModel
     bio = json['bio'];
     email = json['email'];
   }
+
+  Map<String , dynamic> toJson()
+  {
+    return {
+      'image':image,
+      'Uid':Uid,
+      'name':name,
+      'bio':bio,
+      'email':email,
+    };
+  }
 }

@@ -133,7 +133,6 @@ class SocialSignInScreen extends StatelessWidget {
                         if (state is SignInLoadingState)
                           Center(child: CircularProgressIndicator()),
                         if (state is! SignInLoadingState)
-                          if(false)
                           defaultButton(
                             whenPress: () {
                               if (formKey.currentState.validate()) {
