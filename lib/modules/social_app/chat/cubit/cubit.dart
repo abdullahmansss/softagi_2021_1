@@ -15,14 +15,14 @@ class ChatCubit extends Cubit<ChatStates>
   TextEditingController messageController = TextEditingController();
 
   void sendMessage({
-    SocialUserModel receiverModel,
+    String receiverUid,
   }) {
     emit(ChatSendMessageLoadingState());
 
     MessageModel messageModel = MessageModel(
       time: DateTime.now().toString(),
       message: messageController.text,
-      receiverUid: receiverModel.Uid,
+      receiverUid: receiverUid,
       senderUid: currentUser.uid,
     );
 
@@ -30,7 +30,7 @@ class ChatCubit extends Cubit<ChatStates>
         .collection('users')
         .doc(currentUser.uid)
         .collection('chats')
-        .doc(receiverModel.Uid)
+        .doc(receiverUid)
         .collection('messages')
         .add(messageModel.toJson())
         .then((value) {
@@ -41,7 +41,7 @@ class ChatCubit extends Cubit<ChatStates>
 
     FirebaseFirestore.instance
         .collection('users')
-        .doc(receiverModel.Uid)
+        .doc(receiverUid)
         .collection('chats')
         .doc(currentUser.uid)
         .collection('messages')
@@ -56,7 +56,7 @@ class ChatCubit extends Cubit<ChatStates>
   List<MessageModel> messages = [];
 
   void getMessages({
-    SocialUserModel receiverModel,
+    String receiverUid,
   }) {
     emit(ChatGetMessagesLoadingState());
 
@@ -64,7 +64,7 @@ class ChatCubit extends Cubit<ChatStates>
         .collection('users')
         .doc(currentUser.uid)
         .collection('chats')
-        .doc(receiverModel.Uid)
+        .doc(receiverUid)
         .collection('messages')
         .orderBy('time')
         .snapshots()

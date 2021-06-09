@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:softagi_2021/layout/cubit/cubit.dart';
 import 'package:softagi_2021/layout/news_app/cubit/cubit.dart';
 import 'package:softagi_2021/layout/news_app/cubit/states.dart';
@@ -17,12 +19,23 @@ import 'package:softagi_2021/layout/social_app/social_layout.dart';
 import 'package:softagi_2021/models/shop_app/user_model.dart';
 import 'package:softagi_2021/modules/shop_app/sign_in/cubit/cubit.dart';
 import 'package:softagi_2021/modules/shop_app/sign_in/sign_in_screen.dart';
+import 'package:softagi_2021/modules/social_app/chat/chat_screen.dart';
 import 'package:softagi_2021/modules/social_app/login/social_sign_in_screen.dart';
 import 'package:softagi_2021/shared/bloc_observer.dart';
 import 'package:softagi_2021/shared/components/components.dart';
 import 'package:softagi_2021/shared/constants.dart';
 import 'package:softagi_2021/shared/network/local/cache_helper.dart';
 import 'package:softagi_2021/shared/network/remote/dio_helper.dart';
+
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async
+{
+  print('background fcm sent');
+
+  Fluttertoast.showToast(
+    msg: 'hello',
+    gravity: ToastGravity.BOTTOM,
+  );
+}
 
 // main method in app
 void main() async {
@@ -66,13 +79,19 @@ void main() async {
 
   currentUser = FirebaseAuth.instance.currentUser;
 
-  if(currentUser != null)
-  {
+  if (currentUser != null) {
     start = SocialLayout();
-  } else
-    {
-      start = SocialSignInScreen();
-    }
+  } else {
+    start = SocialSignInScreen();
+  }
+
+  FirebaseMessaging.instance.getToken().then((value) {
+    print(value);
+
+    // fZA8T3KTRQSatF-iXA9SbR:APA91bH2OsSh6dlaYERiViWITOrB8yfgpuxmRT7GG-1zBBDu9cdQmvpaCHdlRCTWdRRYRpTqQwcDiG-lMKod2Z0JM5sTFxQ5d-qzVmDnVUYxe5AMmxYAW9aVfg52SgqDKUD_jAnY49Zj
+  });
+
+  FirebaseMessaging.instance.subscribeToTopic('new_arrivals');
 
   // run my app method
   // param is object from Widget class
@@ -89,7 +108,7 @@ void main() async {
 // 2. stateful
 
 // main class extends widget
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // main method of class to build screen UI
   final bool isDark;
   final String countryCode;
@@ -102,12 +121,35 @@ class MyApp extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context)
-  {
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+    FirebaseMessaging.onMessage.listen((event) {
+      print('foreground fcm sent');
+      print(event.data);
+
+      // navigateTo(
+      //   context: context,
+      //   widget: ChatScreen(
+      //     name: event.data['name'],
+      //     uId: event.data['id'],
+      //   ),
+      // );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     // material app object wrap all screens
     return MultiBlocProvider(
-      providers:
-      [
+      providers: [
         BlocProvider(
           create: (BuildContext context) => ShopCubit(),
         ),
@@ -182,7 +224,7 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.light,
         home: Directionality(
           textDirection: TextDirection.ltr,
-          child: start,
+          child: widget.start,
         ),
       ),
     );

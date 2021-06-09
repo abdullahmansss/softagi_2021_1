@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:softagi_2021/layout/social_app/cubit/states.dart';
 import 'package:softagi_2021/models/social_app/social_user_model.dart';
+import 'package:softagi_2021/modules/social_app/chat/chat_screen.dart';
 import 'package:softagi_2021/modules/social_app/home/social_home_screen.dart';
 import 'package:softagi_2021/modules/social_app/settings/social_settings_screen.dart';
 import 'package:softagi_2021/shared/components/components.dart';
@@ -19,6 +21,24 @@ class SocialCubit extends Cubit<SocialStates> {
   static SocialCubit get(context) => BlocProvider.of(context);
 
   int currentIndex = 0;
+
+  void setOnAppOpened(context)
+  {
+    FirebaseMessaging.onMessageOpenedApp.listen((event)
+    {
+      emit(SocialSetOnAppOpenedState());
+
+      print('app opened');
+
+      navigateTo(
+        context: context,
+        widget: ChatScreen(
+          name: event.data['name'],
+          uId: event.data['id'],
+        ),
+      );
+    });
+  }
 
   void changeIndex(int index) {
     currentIndex = index;

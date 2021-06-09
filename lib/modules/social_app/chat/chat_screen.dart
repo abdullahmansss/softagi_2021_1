@@ -7,11 +7,14 @@ import 'package:softagi_2021/modules/social_app/chat/cubit/cubit.dart';
 import 'package:softagi_2021/modules/social_app/chat/cubit/states.dart';
 import 'package:softagi_2021/shared/components/components.dart';
 
-class ChatScreen extends StatelessWidget {
-  SocialUserModel socialUserModel;
+class ChatScreen extends StatelessWidget
+{
+  String name;
+  String uId;
 
   ChatScreen({
-    this.socialUserModel,
+    this.name,
+    this.uId,
   });
 
   @override
@@ -19,7 +22,7 @@ class ChatScreen extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => ChatCubit()
         ..getMessages(
-          receiverModel: this.socialUserModel,
+          receiverUid: this.uId,
         ),
       child: BlocConsumer<ChatCubit, ChatStates>(
         listener: (context, state) {},
@@ -28,7 +31,7 @@ class ChatScreen extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                this.socialUserModel.name,
+                this.name,
               ),
             ),
             body: Column(
@@ -75,7 +78,7 @@ class ChatScreen extends StatelessWidget {
                                 mini: true,
                                 onPressed: () {
                                   ChatCubit.get(context).sendMessage(
-                                    receiverModel: this.socialUserModel,
+                                    receiverUid: this.uId,
                                   );
                                 },
                                 heroTag: 'send',

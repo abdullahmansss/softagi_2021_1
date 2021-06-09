@@ -2,6 +2,8 @@ abstract class SocialStates {}
 
 class SocialInitState extends SocialStates {}
 
+class SocialSetOnAppOpenedState extends SocialStates {}
+
 class SocialChangeBottomState extends SocialStates {}
 
 class SocialGetProfileLoadingState extends SocialStates {}
