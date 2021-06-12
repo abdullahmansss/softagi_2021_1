@@ -29,7 +29,7 @@ dependencies:
   flutter_bloc: ^7.0.0
   bloc: ^7.0.0
   dio:
-  shared_preferences: ^2.0.5
+  #shared_preferences:
   webview_flutter: ^2.0.4
   carousel_slider: ^3.0.0
   image_picker: ^0.8.0+1
@@ -40,6 +40,7 @@ dependencies:
   google_sign_in: ^5.0.4
   cloud_firestore: ^2.2.0
   firebase_storage: ^8.1.1
+  flutter_facebook_auth: ^3.4.1
 
 
   # The following adds the Cupertino Icons font to your application.
